@@ -2,11 +2,13 @@ package com.devsuperior.DsCatalog.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.devsuperior.DsCatalog.dto.CategoryDTO;
 import com.devsuperior.DsCatalog.model.Category;
 import com.devsuperior.DsCatalog.repository.CategoryRepostory;
 
@@ -17,32 +19,50 @@ public class CategoryService {
     CategoryRepostory cr;
 
     @Transactional(readOnly = true)
-    public List<Category> findAll() {
+    public List<CategoryDTO> findAll() {
         List<Category> category = cr.findAll();
-        return category;
+
+        List<CategoryDTO> categoryDTOs = category.stream().map(e -> new CategoryDTO(e)).collect(Collectors.toList());
+        return categoryDTOs;
     }
 
     @Transactional(readOnly = true)
-    public Category findById(Long id) {
-        Category category = cr.findById(id).get();
+    public CategoryDTO findById(Long id) {
+        Optional<Category> category = cr.findById(id);
+        Category category2 = category.orElseThrow(() -> new RuntimeException("Entity not found"));
 
-        return category;
+        return new CategoryDTO(category2);
+
     }
 
-    public Category create(Category category) throws Exception {
+    public CategoryDTO create(CategoryDTO category) throws Exception {
         Category category1 = new Category();
-
         category1.setName(category.getName());
 
-        return cr.save(category1); // Cria o objeto (com id
+        Category savedCategory = cr.save(category1);
+
+        CategoryDTO savedCategoryDTO = new CategoryDTO();
+        savedCategoryDTO.setId(savedCategory.getId());
+        savedCategoryDTO.setName(savedCategory.getName());
+
+        return savedCategoryDTO;
     }
 
-    public Category update(long id, Category category) {
-        Category category2 = findById(id);
+    public CategoryDTO update(long id, CategoryDTO category) {
 
-        category2.setName(category.getName());
+        CategoryDTO categoryDTO = findById(id);
 
-        return cr.save(category2); // Atualiza o objeto (com id)
+        categoryDTO.setName(category.getName());
+
+        Category category3 = new Category();
+        category3.setId(categoryDTO.getId());
+        category3.setName(categoryDTO.getName());
+
+        Category category2 = cr.save(category3);
+
+        return new CategoryDTO(category2);
+
+        // Atualiza o objeto (com id)
 
     }
 

@@ -16,7 +16,7 @@ public class DbProd {
 
     @Bean
     public void instaciaDb() {
-
+        this.dbService.instaciaDados();
     }
 
 }
