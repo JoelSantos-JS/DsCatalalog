@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,7 +69,13 @@ public class CategoryService {
     }
 
     public void delete(long id) {
-        cr.deleteById(id);
+        try {
+            cr.deleteById(id);
+        } catch (Exception e) {
+            // TODO: handle exception
+            throw new DataIntegrityViolationException("Não é possível deletar uma categoria que possui produtos");
+        }
+
     }
 
 }
