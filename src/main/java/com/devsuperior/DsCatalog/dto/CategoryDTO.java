@@ -5,6 +5,7 @@ import com.devsuperior.DsCatalog.model.Category;
 public class CategoryDTO {
 
     private long id;
+
     private String name;
 
     public CategoryDTO() {

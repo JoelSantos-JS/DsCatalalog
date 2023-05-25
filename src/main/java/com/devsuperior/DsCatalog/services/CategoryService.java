@@ -36,6 +36,7 @@ public class CategoryService {
     }
 
     public CategoryDTO create(CategoryDTO category) throws Exception {
+
         Category category1 = new Category();
         category1.setName(category.getName());
 

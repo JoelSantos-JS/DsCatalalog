@@ -38,7 +38,7 @@ public class CategoryController {
     @PostMapping
     public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO category) throws Exception {
         CategoryDTO cat = cs.create(category);
-        return ResponseEntity.ok().body(cat);
+        return ResponseEntity.status(201).body(cat);
 
     }
 
@@ -50,7 +50,7 @@ public class CategoryController {
 
     }
 
-    @DeleteMapping
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
         cs.delete(id);
         return ResponseEntity.noContent().build();
