@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.DsCatalog.model.Category;
 import com.devsuperior.DsCatalog.repository.CategoryRepostory;
@@ -15,11 +16,13 @@ public class CategoryService {
     @Autowired
     CategoryRepostory cr;
 
+    @Transactional(readOnly = true)
     public List<Category> findAll() {
         List<Category> category = cr.findAll();
         return category;
     }
 
+    @Transactional(readOnly = true)
     public Category findById(Long id) {
         Category category = cr.findById(id).get();
 
