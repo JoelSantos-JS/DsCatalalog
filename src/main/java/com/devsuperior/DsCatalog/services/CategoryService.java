@@ -34,4 +34,17 @@ public class CategoryService {
         return cr.save(category1); // Cria o objeto (com id
     }
 
+    public Category update(long id, Category category) {
+        Category category2 = findById(id);
+
+        category2.setName(category.getName());
+
+        return cr.save(category2); // Atualiza o objeto (com id)
+
+    }
+
+    public void delete(long id) {
+        cr.deleteById(id);
+    }
+
 }
