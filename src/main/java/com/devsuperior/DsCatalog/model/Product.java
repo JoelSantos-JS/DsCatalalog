@@ -22,21 +22,19 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(length = 100)
     private String name;
-    @Column(nullable = false, length = 500)
+    @Column(length = 500)
     private String description;
-    @Column(nullable = false, length = 100)
+    @Column(length = 100)
     private Double price;
     private String imgUrl;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant date;
 
     @ManyToMany
-    @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"
-
-    ))
-    Set<Category> categories = new HashSet<>();
+    @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories = new HashSet<>();
 
     public Product() {
 

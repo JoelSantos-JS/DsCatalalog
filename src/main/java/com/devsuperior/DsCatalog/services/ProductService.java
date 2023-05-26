@@ -11,9 +11,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.devsuperior.DsCatalog.dto.CategoryDTO;
 import com.devsuperior.DsCatalog.dto.ProductDTO;
 import com.devsuperior.DsCatalog.exception.EnityNotFoundException;
+import com.devsuperior.DsCatalog.model.Category;
 import com.devsuperior.DsCatalog.model.Product;
+import com.devsuperior.DsCatalog.repository.CategoryRepostory;
 import com.devsuperior.DsCatalog.repository.ProductRepository;
 
 @Service
@@ -21,6 +24,9 @@ public class ProductService {
 
     @Autowired
     private ProductRepository pr;
+
+    @Autowired
+    private CategoryRepostory cr;
 
     @Transactional(readOnly = true)
     public List<ProductDTO> findAll() {
@@ -42,7 +48,7 @@ public class ProductService {
         Optional<Product> category = pr.findById(id);
         Product category2 = category.orElseThrow(() -> new EnityNotFoundException("Entity not found"));
 
-        return new ProductDTO(category2);
+        return new ProductDTO(category2, category2.getCategories());
 
     }
 
@@ -50,31 +56,43 @@ public class ProductService {
     public ProductDTO create(ProductDTO category) throws Exception {
 
         Product category1 = new Product();
+
+        copyDtoToEntity(category, category1);
+
+        category1 = pr.save(category1);
+
+        return new ProductDTO(category1);
+    }
+
+    private void copyDtoToEntity(ProductDTO category, Product category1) {
         category1.setName(category.getName());
+        category1.setDescription(category.getDescription());
+        category1.setImgUrl(category.getImgUrl());
+        category1.setPrice(category.getPrice());
+        category1.getCategories().clear();
+        for (CategoryDTO categoryDTO : category.getCategories()) {
+            Category category5 = cr.getOne(categoryDTO.getId());
+            category1.getCategories().add(category5);
+        }
 
-        Product savedCategory = pr.save(category1);
-
-        ProductDTO savedProductDTO = new ProductDTO();
-        savedProductDTO.setId(savedCategory.getId());
-        savedProductDTO.setName(savedCategory.getName());
-
-        return savedProductDTO;
     }
 
     @Transactional
     public ProductDTO update(long id, ProductDTO category) {
 
-        ProductDTO ProductDTO = findById(id);
+        try {
+            Product product = pr.getOne(id);
+            copyDtoToEntity(category, product);
+            product = pr.save(product);
 
-        ProductDTO.setName(category.getName());
+            ProductDTO productDTO = new ProductDTO(product);
 
-        Product category3 = new Product();
-        category3.setId(ProductDTO.getId());
-        category3.setName(ProductDTO.getName());
+            return productDTO;
 
-        Product category2 = pr.save(category3);
-
-        return new ProductDTO(category2);
+        } catch (Exception e) {
+            // TODO: handle exception
+            throw new EnityNotFoundException("Entity not found");
+        }
 
         // Atualiza o objeto (com id)
 

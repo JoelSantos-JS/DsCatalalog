@@ -1,7 +1,11 @@
 package com.devsuperior.DsCatalog.dto;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
+import com.devsuperior.DsCatalog.model.Category;
 import com.devsuperior.DsCatalog.model.Product;
 
 public class ProductDTO {
@@ -15,8 +19,19 @@ public class ProductDTO {
 
     private Instant date;
 
+    private List<CategoryDTO> categories = new ArrayList<>();
+
     public ProductDTO() {
 
+    }
+
+    public ProductDTO(long id, String name, String description, Double price, String imgUrl, Instant date) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.imgUrl = imgUrl;
+        this.date = date;
     }
 
     public ProductDTO(Product product) {
@@ -26,6 +41,12 @@ public class ProductDTO {
         this.price = product.getPrice();
         this.imgUrl = product.getImgUrl();
         this.date = product.getDate();
+    }
+
+    public ProductDTO(Product product, Set<Category> cat) {
+        this(product);
+
+        cat.forEach(cat2 -> this.categories.add(new CategoryDTO(cat2)));
     }
 
     public long getId() {
@@ -74,6 +95,10 @@ public class ProductDTO {
 
     public void setDate(Instant date) {
         this.date = date;
+    }
+
+    public List<CategoryDTO> getCategories() {
+        return categories;
     }
 
 }
