@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.DsCatalog.dto.CategoryDTO;
+import com.devsuperior.DsCatalog.exception.EnityNotFoundException;
 import com.devsuperior.DsCatalog.model.Category;
 import com.devsuperior.DsCatalog.repository.CategoryRepostory;
 
@@ -30,7 +31,7 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public CategoryDTO findById(Long id) {
         Optional<Category> category = cr.findById(id);
-        Category category2 = category.orElseThrow(() -> new RuntimeException("Entity not found"));
+        Category category2 = category.orElseThrow(() -> new EnityNotFoundException("Entity not found"));
 
         return new CategoryDTO(category2);
 
