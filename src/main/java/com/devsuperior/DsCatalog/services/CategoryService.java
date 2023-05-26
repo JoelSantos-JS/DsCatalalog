@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +28,12 @@ public class CategoryService {
 
         List<CategoryDTO> categoryDTOs = category.stream().map(e -> new CategoryDTO(e)).collect(Collectors.toList());
         return categoryDTOs;
+    }
+
+    public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
+        Page<Category> category = cr.findAll(pageRequest);
+
+        return category.map(e -> new CategoryDTO(e));
     }
 
     @Transactional(readOnly = true)
