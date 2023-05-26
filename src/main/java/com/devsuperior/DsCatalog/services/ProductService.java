@@ -46,6 +46,7 @@ public class ProductService {
 
     }
 
+    @Transactional
     public ProductDTO create(ProductDTO category) throws Exception {
 
         Product category1 = new Product();
@@ -60,6 +61,7 @@ public class ProductService {
         return savedProductDTO;
     }
 
+    @Transactional
     public ProductDTO update(long id, ProductDTO category) {
 
         ProductDTO ProductDTO = findById(id);
