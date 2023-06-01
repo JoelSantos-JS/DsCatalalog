@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,8 +31,8 @@ public class CategoryService {
         return categoryDTOs;
     }
 
-    public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
-        Page<Category> category = cr.findAll(pageRequest);
+    public Page<CategoryDTO> findAllPaged(Pageable pageable) {
+        Page<Category> category = cr.findAll(pageable);
 
         return category.map(e -> new CategoryDTO(e));
     }
