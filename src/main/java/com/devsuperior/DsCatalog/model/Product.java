@@ -109,6 +109,8 @@ public class Product implements Serializable {
         return result;
     }
 
+    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

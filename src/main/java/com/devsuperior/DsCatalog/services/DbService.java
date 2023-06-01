@@ -1,7 +1,9 @@
 package com.devsuperior.DsCatalog.services;
 
+import java.lang.reflect.Array;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
