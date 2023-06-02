@@ -49,6 +49,9 @@ public class Product implements Serializable {
         this.date = date;
     }
 
+    public Product(String name, String description, double price, String img, Instant date) {
+    }
+
     public long getId() {
         return id;
     }
@@ -108,8 +111,6 @@ public class Product implements Serializable {
         result = prime * result + (int) (id ^ (id >>> 32));
         return result;
     }
-
-    
 
     @Override
     public boolean equals(Object obj) {
