@@ -12,6 +12,9 @@ import jakarta.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
+    public ResourceExceptionHandler(String string) {
+    }
+
     @ExceptionHandler(EnityNotFoundException.class)
     public ResponseEntity<StandardError> entityNotFound(EnityNotFoundException e, HttpServletRequest request) {
         StandardError err = new StandardError();

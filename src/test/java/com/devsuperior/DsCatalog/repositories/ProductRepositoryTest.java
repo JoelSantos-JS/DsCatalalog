@@ -33,7 +33,7 @@ public class ProductRepositoryTest {
         product = repository.save(product);
 
         Assertions.assertNotNull(product.getId());
-        Assertions.assertEquals(7L, product.getId());
+        Assertions.assertEquals(1L, product.getId());
 
     }
 

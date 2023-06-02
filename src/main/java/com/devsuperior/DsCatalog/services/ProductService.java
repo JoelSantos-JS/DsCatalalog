@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.devsuperior.DsCatalog.dto.CategoryDTO;
 import com.devsuperior.DsCatalog.dto.ProductDTO;
 import com.devsuperior.DsCatalog.exception.EnityNotFoundException;
+import com.devsuperior.DsCatalog.exception.ResourceExceptionHandler;
 import com.devsuperior.DsCatalog.model.Category;
 import com.devsuperior.DsCatalog.model.Product;
 import com.devsuperior.DsCatalog.repository.CategoryRepostory;
@@ -98,9 +100,12 @@ public class ProductService {
 
     }
 
-    public void delete(long id) {
+    public void delete(long id) throws ResourceNotFoundException {
         try {
             pr.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("Id not found " + id);
+
         } catch (Exception e) {
             // TODO: handle exception
             throw new DataIntegrityViolationException("Não é possível deletar uma categoria que possui produtos");

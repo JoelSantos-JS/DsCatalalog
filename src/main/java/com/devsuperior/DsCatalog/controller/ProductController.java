@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.devsuperior.DsCatalog.dto.ProductDTO;
 import com.devsuperior.DsCatalog.services.ProductService;
+import com.devsuperior.DsCatalog.services.ResourceNotFoundException;
 
 @RestController
 @RequestMapping("/products")
@@ -59,7 +60,7 @@ public class ProductController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) throws ResourceNotFoundException {
         pr.delete(id);
         return ResponseEntity.noContent().build();
     }
