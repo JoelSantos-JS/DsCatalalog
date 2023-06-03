@@ -1,24 +1,28 @@
-package com.devsuperior.resources;
+package com.devsuperior.DsCatalog.controller;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.Instant;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import com.devsuperior.DsCatalog.dto.ProductDTO;
-import com.devsuperior.DsCatalog.model.Product;
 import com.devsuperior.DsCatalog.services.ProductService;
 
-@WebMvcTest(ProductResources.class)
-public class ProductResources {
+@WebMvcTest(ProductController.class)
+public class ProductControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,7 +40,7 @@ public class ProductResources {
 
         page = new PageImpl<>(List.of(product));
 
-        when(productService.findAllPaged(null)).thenReturn(page);
+        when(productService.findAllPaged(any())).thenReturn(page);
     }
 
 }
