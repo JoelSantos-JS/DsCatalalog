@@ -19,6 +19,8 @@ import com.devsuperior.DsCatalog.dto.ProductDTO;
 import com.devsuperior.DsCatalog.services.ProductService;
 import com.devsuperior.DsCatalog.services.ResourceNotFoundException;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -45,14 +47,14 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> createCategory(@RequestBody ProductDTO category) throws Exception {
+    public ResponseEntity<ProductDTO> createCategory(@Valid @RequestBody ProductDTO category) throws Exception {
         ProductDTO cat = pr.create(category);
         return ResponseEntity.status(201).body(cat);
 
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ProductDTO> updateCategory(@PathVariable Long id, @RequestBody ProductDTO category) {
+    public ResponseEntity<ProductDTO> updateCategory(@Valid @PathVariable Long id, @RequestBody ProductDTO category) {
         ProductDTO cat = pr.update(id, category);
 
         return ResponseEntity.ok().body(cat);
