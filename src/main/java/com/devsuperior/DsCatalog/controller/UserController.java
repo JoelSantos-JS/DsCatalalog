@@ -2,9 +2,7 @@ package com.devsuperior.DsCatalog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.devsuperior.DsCatalog.dto.CategoryDTO;
 import com.devsuperior.DsCatalog.dto.UserDTO;
 import com.devsuperior.DsCatalog.dto.UserInsertDTO;
-import com.devsuperior.DsCatalog.services.CategoryService;
 import com.devsuperior.DsCatalog.services.ResourceNotFoundException;
 import com.devsuperior.DsCatalog.services.UserService;
 
@@ -43,7 +39,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> createCategory(@RequestBody UserInsertDTO user) throws Exception {
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserInsertDTO user) throws Exception {
         UserDTO cat = cs.create(user);
         return ResponseEntity.status(201).body(cat);
 

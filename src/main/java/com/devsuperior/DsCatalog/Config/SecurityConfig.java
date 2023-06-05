@@ -15,9 +15,7 @@ public class SecurityConfig {
         // TODO: Proper authentication.
         http.csrf().disable().cors().disable();
 
-        http.authorizeHttpRequests().requestMatchers("/products", "/user", "/categories")
-                .permitAll().anyRequest()
-                .authenticated();
+        http.authorizeHttpRequests().anyRequest().permitAll();
         return http.build();
     }
 

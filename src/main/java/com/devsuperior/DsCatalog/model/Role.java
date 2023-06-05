@@ -10,7 +10,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tbs_role")
+@Table(name = "tb_role")
 public class Role implements Serializable {
 
     @Id
