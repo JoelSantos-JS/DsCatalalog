@@ -17,44 +17,48 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devsuperior.DsCatalog.dto.CategoryDTO;
+import com.devsuperior.DsCatalog.dto.UserDTO;
+import com.devsuperior.DsCatalog.dto.UserInsertDTO;
 import com.devsuperior.DsCatalog.services.CategoryService;
+import com.devsuperior.DsCatalog.services.ResourceNotFoundException;
+import com.devsuperior.DsCatalog.services.UserService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
-    CategoryService cs;
+    UserService cs;
 
     @GetMapping()
-    public ResponseEntity<Page<CategoryDTO>> findAll(Pageable pageable) {
+    public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable) {
 
-        Page<CategoryDTO> list = cs.findAllPaged(pageable);
+        Page<UserDTO> list = cs.findAllPaged(pageable);
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/{id}")
-    ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
+    ResponseEntity<UserDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(cs.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO category) throws Exception {
-        CategoryDTO cat = cs.create(category);
+    public ResponseEntity<UserDTO> createCategory(@RequestBody UserInsertDTO user) throws Exception {
+        UserDTO cat = cs.create(user);
         return ResponseEntity.status(201).body(cat);
 
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable Long id, @RequestBody CategoryDTO category) {
-        CategoryDTO cat = cs.update(id, category);
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO category) {
+        UserDTO cat = cs.update(id, category);
 
         return ResponseEntity.ok().body(cat);
 
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) throws ResourceNotFoundException {
         cs.delete(id);
         return ResponseEntity.noContent().build();
     }
