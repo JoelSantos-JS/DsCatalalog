@@ -14,6 +14,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name = "tb_product")
@@ -22,13 +25,18 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotEmpty(message = "Campo obrigatário")
     @Column(length = 100)
     private String name;
     @Column(length = 500)
     private String description;
+
+    @Positive
     @Column(length = 100)
     private Double price;
     private String imgUrl;
+
+    @PastOrPresent
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant date;
 
