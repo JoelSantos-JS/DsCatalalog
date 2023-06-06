@@ -2,6 +2,9 @@ package com.devsuperior.DsCatalog.dto;
 
 import java.io.Serializable;
 
+import com.devsuperior.DsCatalog.services.validation.UserInsertValid;
+
+@UserInsertValid
 public class UserInsertDTO extends UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
