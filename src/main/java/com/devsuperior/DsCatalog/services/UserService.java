@@ -87,7 +87,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(long id, UserDTO category) {
+    public UserDTO update(long id, UserInsertDTO category) {
 
         try {
             User User = ur.getOne(id);
