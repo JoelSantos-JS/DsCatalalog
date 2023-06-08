@@ -20,7 +20,8 @@ public class JwtTokenEnhacer implements TokenEnhancer {
     private UserRepository userRepository;
 
     @Override
-    public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
+    public OAuth2AccessToken enhance(OAuth2AccessToken accessToken,
+            OAuth2Authentication authentication) {
         // TODO Auto-generated method stub
         User user = userRepository.findByEmail(authentication.getName());
 

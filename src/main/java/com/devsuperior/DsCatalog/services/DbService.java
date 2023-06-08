@@ -47,7 +47,7 @@ public class DbService {
         roles.add(new Role(4L, "ROLE_SUPERVISOR"));
 
         users.add(new User(1L, "Joel", "Jose", "joeltere@gmail.com", "joel"));
-        users.add(new User(1L, "Maria", "Jose", "maria@gmail.com", "maria"));
+        users.add(new User(2L, "Maria", "Jose", "maria@gmail.com", "maria"));
 
         products.add(new Product(1L, "Macbook Pro", "Mack", 1200.0, "jjjk", Instant.now()));
         products.add(new Product(2L, "Notebbok Pro", "Mack", 1200.0, "jjjk", Instant.now()));
