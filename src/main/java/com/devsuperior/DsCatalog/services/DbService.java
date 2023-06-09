@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.devsuperior.DsCatalog.dto.UserDTO;
 import com.devsuperior.DsCatalog.model.Category;
 import com.devsuperior.DsCatalog.model.Product;
 import com.devsuperior.DsCatalog.model.Role;
@@ -34,10 +35,6 @@ public class DbService {
     public List<Category> instaciaDados() {
         List<Category> list = new ArrayList<>();
         List<Product> products = new ArrayList<>();
-
-        list.add(new Category(1L, "Books"));
-        list.add(new Category(2L, "Electronics"));
-        list.add(new Category(3L, "Computers"));
 
         products.add(new Product(1L, "Macbook Pro", "Mack", 1200.0, "jjjk", Instant.now()));
         products.add(new Product(2L, "Notebbok Pro", "Mack", 1200.0, "jjjk", Instant.now()));
