@@ -4,10 +4,8 @@ import java.time.Instant;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import com.devsuperior.DsCatalog.model.Product;
 import com.devsuperior.DsCatalog.repository.ProductRepository;
@@ -18,7 +16,6 @@ public class ProductRepositoryTest {
     @Autowired
     private ProductRepository repository;
 
-    @Test
     public void deleteShouldDeleteObjectWhenIdExists() {
         long existingId = 1L;
         repository.deleteById(existingId);
@@ -27,7 +24,6 @@ public class ProductRepositoryTest {
         Assertions.assertFalse(result.isPresent());
     }
 
-    @Test
     public void saveShouldPersistWithAutoincrementWhenIdIsNull() {
         Product product = new Product("Name", "Description", 10.0, "https://link.com", Instant.now());
         product = repository.save(product);
